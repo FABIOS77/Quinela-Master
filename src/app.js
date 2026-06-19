@@ -9,6 +9,8 @@ const authRoutes = require('./features/auth/auth.routes');
 const userRoutes = require('./features/users/user.routes');
 const groupRoutes = require('./features/groups/group.routes');
 const matchRoutes = require('./features/matches/match.routes');
+const predictionRoutes = require('./features/predictions/prediction.routes');
+const dashboardRoutes = require('./features/dashboard/dashboard.routes');
 
 const app = express();
 
@@ -25,6 +27,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/groups', groupRoutes);
 app.use('/api/v1/matches', matchRoutes);
+app.use('/api/v1/predictions', predictionRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
