@@ -2,7 +2,7 @@ const { Router } = require('express');
 const matchController = require('./match.controller');
 const validateSchema = require('../../middlewares/validate.middleware');
 const { verifyToken, restrictTo } = require('../../middlewares/auth.middleware');
-const { createMatchSchema } = require('./match.validator');
+const { createMatchSchema, updateMatchSchema } = require('./match.validator');
 
 const router = Router();
 
