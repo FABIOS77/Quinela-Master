@@ -12,6 +12,11 @@ const Match = sequelize.define('Match', {
     unique: true,
     allowNull: true,
   },
+  phase: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'GROUP_STAGE',
+  },
   home_team: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -49,7 +54,8 @@ const Match = sequelize.define('Match', {
   timestamps: true,
   indexes: [
     { fields: ['match_date'] },
-    { fields: ['status'] }
+    { fields: ['status'] },
+    { fields: ['phase'] }
   ]
 });
 

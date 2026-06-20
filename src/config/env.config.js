@@ -13,5 +13,8 @@ module.exports = {
   jwt: {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
-  }
+  },
+  sportsDb: {
+  apiKey: process.env.SPORTS_DB_API_KEY,
+}
 };

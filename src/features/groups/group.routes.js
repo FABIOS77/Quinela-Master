@@ -11,5 +11,8 @@ router.use(verifyToken);
 router.post('/', validateSchema(createGroupSchema), groupController.createGroup);
 router.post('/join', validateSchema(joinGroupSchema), groupController.joinGroup);
 router.get('/my-groups', groupController.getMyGroups);
+router.get('/:id/invite-code', groupController.getInviteCode);
+router.get('/:id/members', groupController.getMembers);
+router.get('/:id/leaderboard', groupController.getLeaderboard);
 
 module.exports = router;

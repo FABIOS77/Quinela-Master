@@ -14,5 +14,11 @@ const getProfile = async (req, res, next) => {
     next(error);
   }
 };
+const updateProfile = async (req, res, next) => {
+  try {
+    const user = await userService.updateUserProfile(req.user.id, req.body);
+    res.status(200).json({ status: 'success', data: { user } });
+  } catch (error) { next(error); }
+};
 
-module.exports = { getProfile };
+module.exports = { getProfile, updateProfile };

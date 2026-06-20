@@ -16,6 +16,10 @@ const Group = sequelize.define('Group', {
     allowNull: false,
     unique: true,
   },
+  owner_id: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  }
 }, {
   tableName: 'groups',
   timestamps: true,

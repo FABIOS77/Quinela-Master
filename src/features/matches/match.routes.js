@@ -17,5 +17,11 @@ router.post(
   validateSchema(createMatchSchema), 
   matchController.createNewMatch
 );
+router.put(
+  '/:id',
+  restrictTo('ADMIN'),
+  validateSchema(updateMatchSchema),
+  matchController.updateExistingMatch
+);
 
 module.exports = router;

@@ -2,7 +2,7 @@ const config = require('../config/env.config');
 
 class TheSportsDbClient {
   constructor() {
-    this.apiKey = '123';
+    this.apiKey = config.sportsDb.apiKey;
     this.baseUrl = `https://www.thesportsdb.com/api/v1/json/${this.apiKey}`;
   }
 

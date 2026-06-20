@@ -13,5 +13,14 @@ const getUserProfile = async (userId) => {
 
   return user;
 };
+const updateUserProfile = async (userId, data) => {
+  const user = await User.findByPk(userId);
+  if (!user) { const e = new Error('Usuario no encontrado'); e.statusCode = 404; throw e; }
+  if (data.name) user.name = data.name;
+  if (data.password) user.password = data.password;
+  await user.save();
+  const { password, ...userWithoutPass } = user.toJSON();
+  return userWithoutPass;
+};
 
-module.exports = { getUserProfile };
+module.exports = { getUserProfile, updateUserProfile };

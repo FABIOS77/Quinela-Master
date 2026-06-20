@@ -47,5 +47,59 @@ const getMyGroups = async (req, res, next) => {
     next(error);
   }
 };
+const getInviteCode = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const { id: groupId } = req.params;
+    
+    const inviteCode = await groupService.getGroupInviteCode(userId, groupId);
+    
+    res.status(200).json({
+      status: 'success',
+      data: { invite_code: inviteCode },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
-module.exports = { createGroup, joinGroup, getMyGroups };
+const getMembers = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const { id: groupId } = req.params;
+    
+    const members = await groupService.getGroupMembers(userId, groupId);
+    
+    res.status(200).json({
+      status: 'success',
+      results: members.length,
+      data: { members },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getLeaderboard = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const { id: groupId } = req.params;
+    
+    const leaderboard = await groupService.getGroupLeaderboard(userId, groupId);
+    
+    res.status(200).json({
+      status: 'success',
+      data: { leaderboard },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { 
+  createGroup, 
+  joinGroup, 
+  getMyGroups,
+  getInviteCode, 
+  getMembers, 
+  getLeaderboard };

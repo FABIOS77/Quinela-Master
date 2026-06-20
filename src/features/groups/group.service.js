@@ -72,5 +72,50 @@ const getUserGroups = async (userId) => {
 
   return user ? user.groups : [];
 };
+const verifyMembership = async (userId, groupId) => {
+  const member = await GroupMember.findOne({
+    where: { user_id: userId, group_id: groupId }
+  });
+  if (!member) {
+    const error = new Error('No tienes permisos para ver información de este grupo');
+    error.statusCode = 403;
+    throw error;
+  }
+  return true;
+};
+const getGroupInviteCode = async (userId, groupId) => {
+  await verifyMembership(userId, groupId);
+  const group = await Group.findByPk(groupId, { attributes: ['invite_code'] });
+  return group.invite_code;
+};
+const getGroupMembers = async (userId, groupId) => {
+  await verifyMembership(userId, groupId);
+  
+  const group = await Group.findByPk(groupId, {
+    include: [{
+      model: User,
+      as: 'members',
+      attributes: ['id', 'name', 'email'],
+      through: { attributes: ['total_points', 'createdAt'] }
+    }]
+  });
+  
+  
+  return group.members;
+};
+const getGroupLeaderboard = async (userId, groupId) => {
+  const members = await getGroupMembers(userId, groupId);
+  const leaderboard = members.sort((a, b) => {
+    return b.GroupMember.total_points - a.GroupMember.total_points;
+  });
 
-module.exports = { createGroup, joinGroup, getUserGroups };
+  return leaderboard;
+};
+
+module.exports = { 
+  createGroup,
+  joinGroup,
+  getUserGroups,
+  getGroupInviteCode,
+  getGroupMembers, 
+  getGroupLeaderboard };
